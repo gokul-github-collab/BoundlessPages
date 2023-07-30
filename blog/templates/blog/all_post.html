@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Posts {% endblock %}
+{% block css_files %}
+<style>
+    #top-posts {
+        padding: 1.5rem;
+        text-align: center;
+        background-color: aliceblue;
+    }
+
+    h1 {
+        font-weight: 800;
+        font-size: 3rem;
+        padding: 1rem 0;
+        /* color: #fff; */
+    }
+
+    .main-card {
+        background-color: #fe8172;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="top-posts">
+    <h1>My Collected Posts</h1>
+    <div class="container-fluid">
+        <div class="card shadow-lg p-3 mb-5 main-card">
+            <div class="card-body  rounded">
+                <div class="row">
+                    {% for post in posts %}
+                    {% include 'blog/includes/post.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% include 'blog/includes/footer.html' %}
+</section>
+
+{% endblock %}

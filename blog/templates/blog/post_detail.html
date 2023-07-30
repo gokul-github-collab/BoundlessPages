@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+<style>
+    #post_detail {
+        background-color: #ff4c68;
+        padding: 2rem 3rem;
+    }
+
+<!--    #comment{-->
+<!--        text-align: center;-->
+<!--    }-->
+    span {
+        font-weight: 600;
+        color: black;
+    }
+
+    h1 {
+        font-weight: 800;
+        font-size: 3.6rem;
+    }
+
+    .author-name {
+        font-weight: 700;
+    }
+</style>
+{% endblock %}
+
+{% block title %}
+{{post.title}}
+{% endblock %}
+
+{% block content %}
+
+<section id="post_detail" class="mb-3">
+    <div class="container-fluid">
+        <div class="card shadow-lg p-3 mb-5">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="card-header">
+                        <img src="{% static 'blog/images/'|add:post.image_name %}" class="img-fluid rounded">
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="card-body">
+                        <h1>{{post.title}}</h1>
+                        <h6 class="author-name">By {{post.author.first_name}} {{post.author.last_name}}</h6>
+                        <p>Last updated on <span>{{post.date | date:"d M Y"}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card shadow-lg p-4 mb-5">
+            <div class="card-body">
+                <h6 style="font-weight: 600; line-height: 1.5; color: #000;">{{post.content | linebreaks}}</h6>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% include 'blog/includes/footer.html' %}
+</section>
+
+<section id="comment"  >
+    <div class="container">
+
+        <form method="POST" >
+            <h2>Your Comment</h2>
+            {% for form_field in comment_form %}
+                <div>
+                    {{form_field.label_tag}}
+                    {{form_field}}
+                    {{form_field.errors}}
+                </div>
+            {% endfor %}
+            <button>Save Comment</button>
+        </form>
+
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="col-lg-4" style="padding: 1% 2%;">
+    <a href="{% url 'post_detail' post.slug %}" style="text-decoration: none;">
+        <div class="card">
+            <div class="card-header">
+                <img src="{%  static 'blog/images/'|add:post.image_name %}" class="card-img-top rounded" />
+            </div>
+            <div class="card-body">
+                <div class="card-title">
+                    <h3 style="font-weight: 700; font-size: 1.5rem;"> {{post.title}} </h3>
+                </div>
+                <div class="card-text">
+                    <p style="color: #3b3b3b;">{{post.excert}}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<style>
+    #title {
+        background-color: #ff4c68;
+        padding: 0.3rem;
+
+    }
+
+    h1 {
+        color: #fff;
+        font-weight: 800;
+        font-size: 2.5rem;
+        line-height: 1.5;
+    }
+
+    .col-lg-6 img {
+        width: 80%;
+    }
+
+    #about {
+        text-align: center;
+        padding: 3rem 10%;
+    }
+
+    #about h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: 2rem;
+    }
+
+    #about p {
+        color: #8f8f8f;
+        line-height: 1.8;
+        font-size: 1.25rem;
+    }
+
+    #top-posts {
+        background-color: #ef8172;
+        text-align: center;
+        padding: 50px 100px;
+    }
+
+    .top-container {
+        padding: 1.5rem;
+    }
+
+    .img {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="title">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6" style=" padding: 3% 8%">
+                <h1>Sparkling greetings from your animated friend!</h1>
+            </div>
+            <div class="col-lg-6 img">
+                <img src=" {% static 'blog/images/my-project.png' %}">
+                <!-- <img src=" {% static 'blog/images/my-project-2.png' %}" style="width: 40%;"> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container-fluid">
+        <h2>About me</h2>
+        <p>{{posts.2.author.about}}</p>
+    </div>
+</section>
+
+<section id="top-posts">
+    <h1>Top Posts</h1>
+    <div class="container-fluid top-container">
+
+        <div class="row">
+            {% for post in posts %}
+            {% include 'blog/includes/post.html' %}
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+
+{% include 'blog/includes/footer.html' %}
+
+
+{% endblock %}
