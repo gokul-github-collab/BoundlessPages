@@ -7,10 +7,12 @@
         padding: 2rem 3rem;
     }
 
-<!--    #comment{-->
-<!--        text-align: center;-->
-<!--    }-->
-    span {
+    < !-- #comment {
+        -->< !-- text-align: center;
+        -->< !--
+    }
+
+    -->span {
         font-weight: 600;
         color: black;
     }
@@ -63,23 +65,6 @@
     {% include 'blog/includes/footer.html' %}
 </section>
 
-<section id="comment"  >
-    <div class="container">
-
-        <form method="POST" >
-            <h2>Your Comment</h2>
-            {% for form_field in comment_form %}
-                <div>
-                    {{form_field.label_tag}}
-                    {{form_field}}
-                    {{form_field.errors}}
-                </div>
-            {% endfor %}
-            <button>Save Comment</button>
-        </form>
-
-    </div>
-</section>
 
 
 
