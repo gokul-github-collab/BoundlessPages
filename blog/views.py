@@ -2,15 +2,11 @@ from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Post, Author
-from django.views.generic import DetailView, ListView
-from .forms import  CommentForm
+from django.views.generic import ListView, View
+from .forms import CommentForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
-
-
-# def index(request):
-#     author = Author.objects.get(first_name="Gokulakrishnan")
-#     posts = Post.objects.all()
-#     return render(request, "blog/index.html", {"posts": posts, "author": author})
 
 
 class HomeView(ListView):
@@ -36,12 +32,29 @@ class AllPostsView(ListView):
         return qs
 
 
-class PostDetailView(DetailView):
-    template_name = "blog/post_detail.html"
-    model = Post
+class PostDetailView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "comment_form": CommentForm(),
+            "comments": post.comments.all()
+        }
+        return render(request, "blog/post_detail.html", context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["comment_form"] = CommentForm()
-        return context
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "comment_form": CommentForm(),
+            "comments": post.comments.all()
+        }
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
 
+            return HttpResponseRedirect(reverse("post_detail", args=[slug]))
+
+        return render(request, "blog/post_detail.html", context)

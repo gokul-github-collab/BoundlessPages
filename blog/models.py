@@ -16,7 +16,7 @@ class Author(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     excert = models.CharField(max_length=300)
-    image_name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="posts", null=True)
     date = models.DateField(auto_now=True)
     content = models.TextField()
     slug = models.SlugField(null=True)
@@ -30,4 +30,8 @@ class Comment(models.Model):
     user_name = models.CharField(max_length=200)
     user_email = models.EmailField()
     text = models.TextField()
-    post = models.ForeignKey(Post,  on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(
+        Post,  on_delete=models.CASCADE, related_name="comments")
+
+    def __str__(self) -> str:
+        return self.user_name

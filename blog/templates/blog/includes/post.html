@@ -1,10 +1,10 @@
 {% load static %}
 
-<div class="col-lg-4" style="padding: 3% 2%; ">
+<div class="container-fluid  col-lg-4" style="padding: 3% 2%; ">
     <a href="{% url 'post_detail' post.slug %}" style="text-decoration: none;">
         <div class="card" style="padding: 3% 2%;">
-            <div class="card-header" >
-                <img src="{%  static 'blog/images/'|add:post.image_name %}" class="card-img-top rounded" />
+            <div class="card-header">
+                <img src="{{ post.image.url }}" class="card-img-top rounded" />
             </div>
             <div class="card-body">
                 <div class="card-title">
